@@ -2,10 +2,7 @@ package cm.aupas.gestionstock.domain;
 
 
 import ch.qos.logback.core.net.server.Client;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "order_customer")
 public class OrderCustomer extends AbstractEntity{
