@@ -9,12 +9,14 @@ import cm.aupas.gestionstock.repository.ArticleRepository;
 import cm.aupas.gestionstock.services.ArticleService;
 import cm.aupas.gestionstock.validators.ArticleValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 
 @Slf4j
 public class ArticleServiceImpl implements ArticleService {
@@ -84,7 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
 
-        Optional<Article> article=articleRepository.findArticleByReferenceArticle(reference);
+        Optional<Article> article=articleRepository.findByReference(reference);
 
         return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(()->
             new EntityNotFoundException("Aucun article avec cette reference= "+reference+"n' ete trouvee dans la BDD",ErrorCode.ERROR_404));

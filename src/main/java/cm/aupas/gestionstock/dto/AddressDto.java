@@ -19,7 +19,7 @@ public class AddressDto {
 
     private String country;
 
-    Address toEntity(AddressDto addressDto){
+   public static Address toEntity(AddressDto addressDto){
         if(addressDto==null){
             return null;
         }
@@ -33,7 +33,7 @@ public class AddressDto {
         return  address;
     }
 
-    AddressDto fromEntity(Address address){
+   public  static   AddressDto fromEntity(Address address){
         if(address==null){
             return  null;
         }

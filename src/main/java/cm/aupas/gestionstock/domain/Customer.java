@@ -25,6 +25,10 @@ public class Customer extends AbstractEntity{
     @Embedded
     private Address address;
 
+
+    @Column(name = "company_id")
+    private Long companyId;
+
     @OneToMany(mappedBy = "customer")
     private List<OrderCustomer> orderCustomers;
 
