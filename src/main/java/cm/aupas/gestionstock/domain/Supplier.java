@@ -22,10 +22,13 @@ public class Supplier extends AbstractEntity {
     @Column(name = "first_name")
     private  String firstName;
     private String photo;
-    private String mail;
+    private String email;
     private String phone;
     @Embedded
     private Address address;
+
+    @Column(name = "company_id")
+    private Long companyId;
     @OneToMany(mappedBy = "supplier")
     private List<OrderSupplier> orderSuppliers;
 }

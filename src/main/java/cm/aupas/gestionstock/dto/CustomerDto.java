@@ -17,7 +17,7 @@ public class CustomerDto {
 
     private String firstName;
     private String photo;
-    private String mail;
+    private String email;
     private String phone;
     private Long companyId;
     @Embedded
@@ -35,13 +35,14 @@ public class CustomerDto {
             // ODO
         }
         Customer customer=new Customer();
-        customer.setMail(customerDto.getMail());
+        customer.setEmail(customerDto.getEmail());
         customer.setPhone(customerDto.getPhone());
         customer.setPhoto(customerDto.getPhoto());
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
         customer.setId(customerDto.getId());
         customer.setAddress(AddressDto.toEntity(customerDto.getAddress()));
+        customer.setCompanyId(customerDto.getCompanyId());
         //customer.setOrderCustomers(OrderCustomerDto.toEntity(customerDto.getOrderCustomers()));
         //customer.setAddress(customerDto.getAddress());
 
@@ -58,7 +59,7 @@ public class CustomerDto {
                 .firstName(customer.getFirstName())
                 .lastName(customer.getLastName())
                 .id(customer.getId())
-                .mail(customer.getMail())
+                .email(customer.getEmail())
                 .phone(customer.getPhone())
                 .photo(customer.getPhoto())
                 .address(AddressDto.fromEntity(customer.getAddress()))

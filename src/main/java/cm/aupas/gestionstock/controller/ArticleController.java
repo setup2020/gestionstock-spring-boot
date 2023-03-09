@@ -1,12 +1,15 @@
-package cm.aupas.gestionstock.controller.api;
+package cm.aupas.gestionstock.controller;
 
+import cm.aupas.gestionstock.controller.api.ArticleApi;
 import cm.aupas.gestionstock.dto.ArticleDto;
 import cm.aupas.gestionstock.services.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 
-public class ArticleController  implements ArticleApi{
+@RestController
+public class ArticleController  implements ArticleApi {
     private ArticleService articleService;
 
     public ArticleController(ArticleService articleService){
@@ -14,26 +17,28 @@ public class ArticleController  implements ArticleApi{
     }
     @Override
     public ArticleDto findByReferenceArticle(String reference) {
-        return null;
+        return articleService.findByReferenceArticle(reference)
+                ;
     }
 
     @Override
     public ArticleDto save(ArticleDto articleDto) {
-        return null;
+
+        return articleService.save(articleDto);
     }
 
     @Override
     public ArticleDto findById(Long id) {
-        return null;
+        return articleService.findById(id);
     }
 
     @Override
     public List<ArticleDto> findAll() {
-        return null;
+        return articleService.findAll();
     }
 
     @Override
     public void delete(Long id) {
-
+            articleService.delete(id);
     }
 }

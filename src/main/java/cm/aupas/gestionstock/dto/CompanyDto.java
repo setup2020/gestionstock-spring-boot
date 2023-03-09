@@ -1,5 +1,6 @@
 package cm.aupas.gestionstock.dto;
 
+import cm.aupas.gestionstock.domain.Company;
 import cm.aupas.gestionstock.domain.User;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,36 @@ public class CompanyDto {
     private String phone;
     private String webSite;
     private String description;
+
+    public static CompanyDto formEntity(Company company){
+        if(company==null){
+            return null;
+        }
+
+        return CompanyDto.builder()
+                .id(company.getId())
+                .address(AddressDto.fromEntity(company.getAddress()))
+                .codeFiscal(company.getCodeFiscal())
+                .email(company.getEmail())
+                .phone(company.getPhone())
+                .webSite(company.getWebSite())
+                .description(company.getDescription())
+                .build();
+    }
+
+    public static Company toEntity(CompanyDto companyDto){
+        if(companyDto==null){
+            return null;
+        }
+        Company company=new Company();
+        company.setAddress(AddressDto.toEntity(companyDto.getAddress()));
+        company.setEmail(companyDto.getEmail());
+        company.setName(companyDto.getName());
+        company.setPhone(company.getPhone());
+        company.setDescription(company.getDescription());
+        company.setCodeFiscal(company.getCodeFiscal());
+        company.setWebSite(companyDto.getWebSite());
+        return company;
+
+    }
 }

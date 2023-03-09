@@ -20,7 +20,7 @@ public class Customer extends AbstractEntity{
     @Column(name = "first_name")
     private  String firstName;
     private String photo;
-    private String mail;
+    private String email;
     private String phone;
     @Embedded
     private Address address;

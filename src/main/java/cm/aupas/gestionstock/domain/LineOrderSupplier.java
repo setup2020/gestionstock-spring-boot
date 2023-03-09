@@ -32,6 +32,9 @@ public class LineOrderSupplier extends AbstractEntity{
     @Column(name = "price_unity")
     private BigDecimal priceUnity;
 
+    @Column(name = "company_id")
+    private Long companyId;
+
 
 
 }

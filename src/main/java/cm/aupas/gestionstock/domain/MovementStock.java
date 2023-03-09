@@ -32,6 +32,9 @@ public class MovementStock extends AbstractEntity{
     @JoinColumn(name = "article_id")
     private Article article;
 
+    @Column(name = "company_id")
+    private Long companyId;
+
 
 
 }

@@ -3,6 +3,7 @@ package cm.aupas.gestionstock.dto;
 import cm.aupas.gestionstock.domain.Address;
 import cm.aupas.gestionstock.domain.Category;
 import cm.aupas.gestionstock.domain.OrderCustomer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,6 +25,7 @@ public class OrderCustomerDto {
     private String status;
 
     private Long companyId;
+
 
 
     private List<LineOrderCustomerDto> lineOrderCustomers;
