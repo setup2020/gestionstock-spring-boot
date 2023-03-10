@@ -28,8 +28,7 @@ public class OrderSupplier extends AbstractEntity{
     @Column(name = "company_id")
     private Long companyId;
 
-    @Column(name = "supplier_id")
-    private Long supplierId;
+
 
     @OneToMany(mappedBy = "orderSupplier")
     private List<LineOrderSupplier> lineOrderSuppliers;

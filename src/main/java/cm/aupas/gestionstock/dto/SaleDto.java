@@ -1,11 +1,13 @@
 package cm.aupas.gestionstock.dto;
 
+import cm.aupas.gestionstock.domain.LineSale;
 import cm.aupas.gestionstock.domain.Sale;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -18,6 +20,7 @@ public class SaleDto {
     private Instant dateSale;
 
     private String comment;
+    private List<LineSaleDto> lineSales;
 
     public static SaleDto fromEntity(Sale sale){
         if(sale==null){

@@ -1,6 +1,4 @@
 package cm.aupas.gestionstock.dto;
-
-import cm.aupas.gestionstock.domain.Category;
 import cm.aupas.gestionstock.domain.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;

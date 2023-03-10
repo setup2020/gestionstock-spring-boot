@@ -28,8 +28,7 @@ public class OrderCustomer extends AbstractEntity{
     @Column(name = "company_id")
     private  Long companyId;
 
-    @Column(name = "client_id")
-    private Long clientId;
+
 
     @ManyToOne
     @JoinColumn(name ="client_id")

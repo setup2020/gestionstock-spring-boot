@@ -22,7 +22,7 @@ public class LineSaleDto {
     private BigDecimal priceUnity;
 
     private Long companyId;
-    private static  LineSaleDto fromEntity(LineSale lineSale){
+    public static  LineSaleDto fromEntity(LineSale lineSale){
         if(lineSale==null){
             return  null;
         }
@@ -36,7 +36,7 @@ public class LineSaleDto {
                 .build();
     }
 
-    private static LineSale toEntity(LineSaleDto lineSaleDto){
+    public static LineSale toEntity(LineSaleDto lineSaleDto){
         LineSale lineSale=new LineSale();
         lineSale.setId(lineSaleDto.getId());
         lineSale.setSale(SaleDto.toEntity(lineSaleDto.getSale()));

@@ -30,11 +30,11 @@ public class OrderSupplierDto {
             return null;
         }
        return OrderSupplierDto.builder()
-                .id(orderSupplier.getSupplierId())
+                .id(orderSupplier.getId())
                 .reference(orderSupplier.getReference())
                 .dateOrder(orderSupplier.getDateOrder())
                 .companyId(orderSupplier.getCompanyId())
-                .supplierId(orderSupplier.getSupplierId())
+
               //  .supplier(SupplierDto.fromEntity(orderSupplier.getSupplier()))
                 .build();
 
@@ -47,7 +47,7 @@ public class OrderSupplierDto {
         orderSupplier.setReference(orderSupplierDto.getReference());
         orderSupplier.setDateOrder(orderSupplierDto.getDateOrder());
         orderSupplier.setCompanyId(orderSupplierDto.getCompanyId());
-        orderSupplier.setSupplierId(orderSupplier.getSupplierId());
+
        // orderSupplier.setSupplier(SupplierDto.toEntity(orderSupplierDto.getSupplier()));
 
         return orderSupplier;
