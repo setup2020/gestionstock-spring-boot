@@ -21,6 +21,7 @@ public class CompanyDto {
     private String phone;
     private String webSite;
     private String description;
+    private String photo;
 
     public static CompanyDto fromEntity(Company company){
         if(company==null){

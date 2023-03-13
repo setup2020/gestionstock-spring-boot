@@ -2,10 +2,13 @@ package cm.aupas.gestionstock.services.impl;
 
 import cm.aupas.gestionstock.domain.Article;
 import cm.aupas.gestionstock.dto.ArticleDto;
+import cm.aupas.gestionstock.dto.LineOrderCustomerDto;
+import cm.aupas.gestionstock.dto.LineOrderSupplierDto;
+import cm.aupas.gestionstock.dto.LineSaleDto;
 import cm.aupas.gestionstock.exceptions.EntityNotFoundException;
 import cm.aupas.gestionstock.exceptions.ErrorCode;
 import cm.aupas.gestionstock.exceptions.InvalidEntityException;
-import cm.aupas.gestionstock.repository.ArticleRepository;
+import cm.aupas.gestionstock.repository.*;
 import cm.aupas.gestionstock.services.ArticleService;
 import cm.aupas.gestionstock.validators.ArticleValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +25,18 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private  final LineSaleRepository lineSaleRepository;
+    private final LineOrderCustomerRepository lineOrderCustomerRepository;
+    private  final LineOrderSupplierRepository lineOrderSupplierRepository;
+    private final SaleRepository saleRepository;
 
 
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, LineSaleRepository lineSaleRepository, LineOrderCustomerRepository lineOrderCustomerRepository, LineOrderSupplierRepository lineOrderSupplierRepository, SaleRepository saleRepository) {
         this.articleRepository = articleRepository;
+        this.lineSaleRepository = lineSaleRepository;
+        this.lineOrderCustomerRepository = lineOrderCustomerRepository;
+        this.lineOrderSupplierRepository = lineOrderSupplierRepository;
+        this.saleRepository = saleRepository;
     }
 
     @Override
@@ -90,7 +101,29 @@ public class ArticleServiceImpl implements ArticleService {
 
         return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(()->
             new EntityNotFoundException("Aucun article avec cette reference= "+reference+"n' ete trouvee dans la BDD",ErrorCode.ERROR_404));
+    }
 
+    @Override
+    public List<LineSaleDto> findHistorySale(Long articleId) {
 
+        return lineSaleRepository.findAllByArticleId(articleId).stream().map(LineSaleDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LineOrderCustomerDto> findHistoryOrderCustomer(Long articleId) {
+
+    return lineOrderCustomerRepository.findAllByArticleId(articleId).stream().map(LineOrderCustomerDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LineOrderSupplierDto> findHistoryOrderSupplier(Long articleId) {
+
+        return lineOrderSupplierRepository.findAllByArticleId(articleId).stream().map(LineOrderSupplierDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleDto> findAllArticleByCategory(Long categoryId) {
+
+        return articleRepository.findAllByCategoryId(categoryId).stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
     }
 }

@@ -1,8 +1,6 @@
 package cm.aupas.gestionstock.repository;
 
 import cm.aupas.gestionstock.domain.LineOrderSupplier;
-import cm.aupas.gestionstock.domain.OrderSupplier;
-import cm.aupas.gestionstock.dto.OrderSupplierDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +10,6 @@ import java.util.List;
 public interface LineOrderSupplierRepository extends JpaRepository<LineOrderSupplier,Long> {
 
     List<LineOrderSupplier> findAllByOrderSupplierId(Long id);
+
+    List<LineOrderSupplier> findAllByArticleId(Long orderId);
 }

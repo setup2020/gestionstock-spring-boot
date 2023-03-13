@@ -1,6 +1,9 @@
 package cm.aupas.gestionstock.controller.api;
 
 import cm.aupas.gestionstock.dto.ArticleDto;
+import cm.aupas.gestionstock.dto.LineOrderCustomerDto;
+import cm.aupas.gestionstock.dto.LineOrderSupplierDto;
+import cm.aupas.gestionstock.dto.LineSaleDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -60,5 +63,16 @@ public interface ArticleApi {
     @DeleteMapping(value = APP_ROOT+"/articles/{id}")
     public void delete(@PathVariable Long id);
 
+
+    @GetMapping(value = APP_ROOT+"/articles/history/sale/{articleId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LineSaleDto> findHistorySale(@PathVariable Long articleId);
+
+    @GetMapping(value = APP_ROOT+"/articles/history/order_customer/{articleId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LineOrderCustomerDto> findHistoryOrderCustomer(@PathVariable  Long articleId);
+    @GetMapping(value = APP_ROOT+"/articles/history/order_suppliers/{articleId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LineOrderSupplierDto> findHistoryOrderSupplier(@PathVariable  Long articleId);
+
+    @GetMapping(value = APP_ROOT+"/articles/history/filter/category/{categoryId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    List<ArticleDto> findAllArticleByCategory(@PathVariable  Long categoryId);
 
 }

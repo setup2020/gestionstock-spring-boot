@@ -34,6 +34,8 @@ public class Company extends AbstractEntity{
     @Column(name = "description")
     private String description;
 
+    private String photo;
+
     @OneToMany(mappedBy = "company")
     List<User> users;
 

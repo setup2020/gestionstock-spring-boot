@@ -2,6 +2,9 @@ package cm.aupas.gestionstock.controller;
 
 import cm.aupas.gestionstock.controller.api.ArticleApi;
 import cm.aupas.gestionstock.dto.ArticleDto;
+import cm.aupas.gestionstock.dto.LineOrderCustomerDto;
+import cm.aupas.gestionstock.dto.LineOrderSupplierDto;
+import cm.aupas.gestionstock.dto.LineSaleDto;
 import cm.aupas.gestionstock.services.ArticleService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,5 +43,25 @@ public class ArticleController  implements ArticleApi {
     @Override
     public void delete(Long id) {
             articleService.delete(id);
+    }
+
+    @Override
+    public List<LineSaleDto> findHistorySale(Long articleId) {
+        return articleService.findHistorySale(articleId);
+    }
+
+    @Override
+    public List<LineOrderCustomerDto> findHistoryOrderCustomer(Long articleId) {
+        return articleService.findHistoryOrderCustomer(articleId);
+    }
+
+    @Override
+    public List<LineOrderSupplierDto> findHistoryOrderSupplier(Long articleId) {
+        return articleService.findHistoryOrderSupplier(articleId);
+    }
+
+    @Override
+    public List<ArticleDto> findAllArticleByCategory(Long categoryId) {
+        return articleService.findAllArticleByCategory(categoryId);
     }
 }
