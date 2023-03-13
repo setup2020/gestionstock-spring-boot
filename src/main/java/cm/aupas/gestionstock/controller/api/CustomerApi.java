@@ -1,7 +1,7 @@
 package cm.aupas.gestionstock.controller.api;
 
-import cm.aupas.gestionstock.dto.CategoryDto;
 import cm.aupas.gestionstock.dto.CustomerDto;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -12,6 +12,7 @@ import java.util.List;
 
 import static cm.aupas.gestionstock.utils.Constants.APP_ROOT;
 
+@Api(APP_ROOT + "/customers")
 public interface CustomerApi {
 
     @PostMapping(value = APP_ROOT+"/customers",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)

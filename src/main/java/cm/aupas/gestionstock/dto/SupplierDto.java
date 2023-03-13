@@ -1,6 +1,5 @@
 package cm.aupas.gestionstock.dto;
 
-import cm.aupas.gestionstock.domain.Customer;
 import cm.aupas.gestionstock.domain.Supplier;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;

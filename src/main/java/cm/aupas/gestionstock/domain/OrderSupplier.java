@@ -1,5 +1,6 @@
 package cm.aupas.gestionstock.domain;
 
+import cm.aupas.gestionstock.domain.enums.StatusOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class OrderSupplier extends AbstractEntity{
 
     @Column(name = "company_id")
     private Long companyId;
+    private StatusOrder status;
 
 
 

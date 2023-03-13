@@ -46,7 +46,7 @@ public class UserDto {
                 .lastName(user.getLastName())
                 .address(AddressDto.fromEntity(user.getAddress()))
                 .photo(user.getPhoto())
-                .company(CompanyDto.formEntity(user.getCompany()))
+                .company(CompanyDto.fromEntity(user.getCompany()))
                 .roles( user.getRoles()!=null?
                         user.getRoles().stream().map(RoleDto::fromEntity).collect(Collectors.toList()):null)
                 .build();

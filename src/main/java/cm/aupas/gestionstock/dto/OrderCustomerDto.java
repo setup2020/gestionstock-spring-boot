@@ -3,6 +3,7 @@ package cm.aupas.gestionstock.dto;
 import cm.aupas.gestionstock.domain.Address;
 import cm.aupas.gestionstock.domain.Category;
 import cm.aupas.gestionstock.domain.OrderCustomer;
+import cm.aupas.gestionstock.domain.enums.StatusOrder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
@@ -22,12 +23,13 @@ public class OrderCustomerDto {
 
     private CustomerDto customer;
 
-    private String status;
+    private StatusOrder status;
 
     private Long companyId;
 
 
 
+    @JsonIgnore
     private List<LineOrderCustomerDto> lineOrderCustomers;
 
     public static OrderCustomer toEntity(OrderCustomerDto orderCustomerDto) {
@@ -43,7 +45,7 @@ public class OrderCustomerDto {
         orderCustomer.setCustomer(CustomerDto.toEntity(orderCustomerDto.getCustomer()));
         orderCustomer.setCompanyId(orderCustomer.getCompanyId());
         orderCustomer.setCustomer(CustomerDto.toEntity(orderCustomerDto.getCustomer()));
-
+        orderCustomer.setStatus(orderCustomerDto.getStatus());
         return  orderCustomer;
     }
 
@@ -60,7 +62,12 @@ public class OrderCustomerDto {
                .companyId(orderCustomer.getCompanyId())
                .reference(orderCustomer.getReference())
                .dateOrder(orderCustomer.getDateOrder())
+               .status(orderCustomer.getStatus())
 
                .build();
+    }
+
+    public boolean iSOrderDelivery(){
+       return  StatusOrder.LIVREE.equals(this.status);
     }
     }

@@ -22,7 +22,7 @@ public class CompanyDto {
     private String webSite;
     private String description;
 
-    public static CompanyDto formEntity(Company company){
+    public static CompanyDto fromEntity(Company company){
         if(company==null){
             return null;
         }

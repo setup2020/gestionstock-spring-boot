@@ -10,7 +10,7 @@ public class CategoryValidator {
     public static List<String> validator(CategoryDto categoryDto){
         List<String> errors=new ArrayList<>();
         if(categoryDto==null || !StringUtils.hasLength(categoryDto.getCode())){
-            errors.add("Veuillez renseigner le code de la categorie");
+            errors.add("Veuillez renseigner le code de la category");
         }
 
         return errors;

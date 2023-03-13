@@ -2,6 +2,7 @@ package cm.aupas.gestionstock.domain;
 
 
 import ch.qos.logback.core.net.server.Client;
+import cm.aupas.gestionstock.domain.enums.StatusOrder;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class OrderCustomer extends AbstractEntity{
     @Column(name = "date_order")
     private Instant dateOrder;
 
-    private String status;
+    private StatusOrder status;
 
     @Column(name = "company_id")
     private  Long companyId;
