@@ -10,31 +10,35 @@ import lombok.Data;
 @Builder
 public class RoleDto {
     private Long id;
-    private String roleName;
+    private String name;
+    private String status;
 
 
-    private UserDto user;
+  //  private UserDto user;
 
-    public static RoleDto fromEntity(Role role) {
+    public static RoleDto mapToDTO(Role role) {
         if (role == null) {
             return null;
         }
 
         return RoleDto.builder()
                 .id(role.getId())
-                .roleName(role.getRoleName())
+                .name(role.getName())
+                .status(role.getStatus())
                 .build();
 
     }
 
-    public static Role toEntity(RoleDto roleDto) {
+    public static Role mapToEntity(RoleDto roleDto) {
 
         if (roleDto == null) {
             return null;
         }
 
+
         Role role1 = new Role();
-        role1.setRoleName(roleDto.getRoleName());
+        role1.setName(roleDto.getName());
+        role1.setStatus(roleDto.getStatus());
         return role1;
 
     }

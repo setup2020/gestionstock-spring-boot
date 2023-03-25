@@ -36,4 +36,9 @@ public class SupplierController implements SupplierApi {
     public SupplierDto findById(Long id) {
         return supplierService.findById(id);
     }
+
+    @Override
+    public Long count() {
+        return supplierService.count();
+    }
 }

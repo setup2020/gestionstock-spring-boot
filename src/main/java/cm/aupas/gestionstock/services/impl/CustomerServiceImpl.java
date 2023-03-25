@@ -69,4 +69,9 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto update(CustomerDto customerDto) {
         return null;
     }
+
+    @Override
+    public Long count() {
+        return customerRepository.count();
+    }
 }

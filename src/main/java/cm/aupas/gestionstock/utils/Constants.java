@@ -9,6 +9,8 @@ public interface Constants {
       String SALE=APP_ROOT+"/sales";
       String USER=APP_ROOT+"/users";
       String ORDER_CUSTOMER=APP_ROOT+"/order_customers";
+      String AUTHENTICATION=APP_ROOT+"/auth";
+      String ROLE=APP_ROOT+"/roles";
 
-
+      int DEFAULT_PAGE_NUMBER=1;
 }

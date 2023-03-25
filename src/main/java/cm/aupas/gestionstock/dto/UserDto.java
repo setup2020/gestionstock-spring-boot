@@ -30,9 +30,6 @@ public class UserDto {
     private String photo;
 
 
-    private CompanyDto company;
-
-
     private List<RoleDto> roles;
 
 
@@ -46,9 +43,9 @@ public class UserDto {
                 .lastName(user.getLastName())
                 .address(AddressDto.fromEntity(user.getAddress()))
                 .photo(user.getPhoto())
-                .company(CompanyDto.fromEntity(user.getCompany()))
+
                 .roles( user.getRoles()!=null?
-                        user.getRoles().stream().map(RoleDto::fromEntity).collect(Collectors.toList()):null)
+                        user.getRoles().stream().map(RoleDto::mapToDTO).collect(Collectors.toList()):null)
                 .build();
     }
 
@@ -60,8 +57,8 @@ public class UserDto {
         user.setAddress(AddressDto.toEntity(userDto.getAddress()));
         user.setDateBirth(userDto.getDateBirth());
         user.setEmail(userDto.getEmail());
-        user.setCompany(CompanyDto.toEntity(userDto.getCompany()));
-        user.setRoles(userDto.getRoles()!=null?userDto.getRoles().stream().map(RoleDto::toEntity).collect(Collectors.toList()):null);
+
+        user.setRoles(userDto.getRoles()!=null?userDto.getRoles().stream().map(RoleDto::mapToEntity).collect(Collectors.toList()):null);
         user.setPhoto(userDto.getPhoto());
         return user;
     }

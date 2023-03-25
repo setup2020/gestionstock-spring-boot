@@ -24,7 +24,7 @@ public class MovementStockDto {
     private ArticleDto article;
     private Long companyId;
 
-    private static MovementStockDto formEntity(MovementStock movementStock){
+    public static MovementStockDto formEntity(MovementStock movementStock){
         if(movementStock==null){
             return null;
         }

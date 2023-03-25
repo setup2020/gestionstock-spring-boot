@@ -16,8 +16,10 @@ import javax.persistence.*;
 @Table(name = "role")
 public class Role extends AbstractEntity{
 
-    @Column(name = "role_name")
-    private  String roleName;
+    @Column(name = "name")
+    private  String name;
+    @Column(name = "status")
+    private  String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -2,7 +2,11 @@ package cm.aupas.gestionstock.controller;
 
 import cm.aupas.gestionstock.controller.api.CategoryApi;
 import cm.aupas.gestionstock.dto.CategoryDto;
+import cm.aupas.gestionstock.dto.SimplePage;
 import cm.aupas.gestionstock.services.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,12 +36,20 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryService.findAll();
+    public ResponseEntity<SimplePage<CategoryDto>> findAll(String name, Pageable pageable) {
+
+
+
+        return ResponseEntity.ok().body(categoryService.findAll(name, pageable));
     }
 
     @Override
     public void delete(Long id) {
         categoryService.delete(id);
+    }
+
+    @Override
+    public Long count() {
+        return categoryService.count();
     }
 }

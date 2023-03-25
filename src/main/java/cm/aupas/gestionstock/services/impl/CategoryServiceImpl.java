@@ -1,6 +1,8 @@
 package cm.aupas.gestionstock.services.impl;
 
+import cm.aupas.gestionstock.domain.Category;
 import cm.aupas.gestionstock.dto.CategoryDto;
+import cm.aupas.gestionstock.dto.SimplePage;
 import cm.aupas.gestionstock.exceptions.EntityNotFoundException;
 import cm.aupas.gestionstock.exceptions.ErrorCode;
 import cm.aupas.gestionstock.exceptions.InvalidEntityException;
@@ -8,6 +10,8 @@ import cm.aupas.gestionstock.repository.CategoryRepository;
 import cm.aupas.gestionstock.services.CategoryService;
 import cm.aupas.gestionstock.validators.CategoryValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -64,8 +68,15 @@ public class CategoryServiceImpl  implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryRepository.findAll().stream().map(CategoryDto::fromEntity).collect(Collectors.toList());
+    public SimplePage<CategoryDto> findAll(String name, final Pageable pageable) {
+        Page<Category> page=null;
+                if(name!=null){
+                    page=categoryRepository.findAllByNameContains(name,pageable);
+                }else {
+                  page  =  categoryRepository.findAll(pageable);
+                }
+
+       return new SimplePage<>(page.getContent().stream().map(CategoryDto::fromEntity).collect(Collectors.toList()), page.getTotalElements(),pageable);
     }
 
     @Override
@@ -79,8 +90,9 @@ public class CategoryServiceImpl  implements CategoryService {
 
     }
 
+
     @Override
-    public CategoryDto update(CategoryDto categoryDto) {
-        return null;
+    public Long count() {
+        return categoryRepository.count();
     }
 }

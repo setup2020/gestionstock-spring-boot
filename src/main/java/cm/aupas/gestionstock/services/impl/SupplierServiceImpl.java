@@ -60,4 +60,9 @@ public class SupplierServiceImpl implements SupplierService {
     public SupplierDto update(SupplierDto supplierDto) {
         return null;
     }
+
+    @Override
+    public Long count() {
+        return  supplierRepository.count();
+    }
 }

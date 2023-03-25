@@ -25,7 +25,7 @@ public class AddressDto {
         }
 
         Address address=new Address();
-        address.setAddress2(addressDto.getAddress1());
+        address.setAddress1(addressDto.getAddress1());
         address.setAddress2(addressDto.getAddress2());
         address.setCity(addressDto.getCity());
         address.setCountry(addressDto.getCountry());

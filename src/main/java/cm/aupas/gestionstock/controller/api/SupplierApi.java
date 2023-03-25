@@ -44,4 +44,8 @@ public interface SupplierApi {
             @ApiResponse(code = 404, message = "Aucun fournisseur n'existe dans la BDD avec l'ID fourni")
     })
     SupplierDto findById(@PathVariable Long id);
+
+    @GetMapping(APP_ROOT + "/suppliers/count")
+    @ApiOperation(value = "Compte les fournisseurs",notes = "Cette methode permet de compter le nombre de fournisseur")
+    Long count();
 }

@@ -26,7 +26,7 @@ public interface ArticleApi {
     ArticleDto findByReferenceArticle(@PathVariable String reference);
 
 
-    @PostMapping(value =APP_ROOT+"/articles/",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value =APP_ROOT+"/articles",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un article par ID", notes ="Cette methode permet d'enregistrer ou modifier un article",response = ArticleDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200,message = "L'objet article cree/ modifier"),

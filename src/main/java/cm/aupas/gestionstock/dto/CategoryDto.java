@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class CategoryDto {
+public class CategoryDto  {
     private Long id;
     private String code;
 

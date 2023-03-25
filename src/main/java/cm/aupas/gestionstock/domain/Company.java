@@ -36,8 +36,7 @@ public class Company extends AbstractEntity{
 
     private String photo;
 
-    @OneToMany(mappedBy = "company")
-    List<User> users;
+
 
 
 }

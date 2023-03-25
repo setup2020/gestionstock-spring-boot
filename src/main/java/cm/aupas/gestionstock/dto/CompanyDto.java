@@ -12,7 +12,6 @@ import java.util.List;
 @Builder
 public class CompanyDto {
     private Long id;
-    List<User> users;
     private String name;
     @Embedded
     private AddressDto address;
@@ -43,6 +42,7 @@ public class CompanyDto {
         if(companyDto==null){
             return null;
         }
+
         Company company=new Company();
         company.setAddress(AddressDto.toEntity(companyDto.getAddress()));
         company.setEmail(companyDto.getEmail());

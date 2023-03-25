@@ -20,6 +20,7 @@ spring:
 
 server:
   port: 8082
+  address: 0.0.0.0
 
 flickr:
   apiKey: 33092399083b204fefd0adc44c94fd09

@@ -46,4 +46,8 @@ public interface CustomerApi {
             @ApiResponse(code = 404,message = "Aucun client n'existe dans la BDD avec l'ID fourni")
     })
     CustomerDto findById(@PathVariable Long id);
+
+    @GetMapping(APP_ROOT + "/customers/count")
+    @ApiOperation(value = "Compte les clients",notes = "Cette methode permet de compter le nombre de client")
+    Long count();
 }

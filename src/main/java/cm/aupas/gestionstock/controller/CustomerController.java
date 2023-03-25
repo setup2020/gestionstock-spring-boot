@@ -36,4 +36,9 @@ public class CustomerController implements CustomerApi {
     public CustomerDto findById(Long id) {
         return customerService.findById(id);
     }
+
+    @Override
+    public Long count() {
+        return customerService.count();
+    }
 }

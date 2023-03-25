@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -35,10 +37,7 @@ public class User  extends AbstractEntity{
     @Column(name = "photo")
     private String photo;
 
-    @ManyToOne
-    @JoinColumn(name = "company_id")
 
-    private Company company;
 
     @OneToMany(mappedBy = "user")
     private List<Role> roles;
