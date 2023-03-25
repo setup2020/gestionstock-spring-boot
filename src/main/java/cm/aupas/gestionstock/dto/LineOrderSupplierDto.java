@@ -31,7 +31,7 @@ public class LineOrderSupplierDto {
         }
         return LineOrderSupplierDto.builder()
                 .id(lineOrderSupplier.getId())
-                .article(ArticleDto.fromEntity(lineOrderSupplier.getArticle()))
+                .article(ArticleDto.mapToDTO(lineOrderSupplier.getArticle()))
 
                 .quantity(lineOrderSupplier.getQuantity())
                 .priceUnity(lineOrderSupplier.getPriceUnity())

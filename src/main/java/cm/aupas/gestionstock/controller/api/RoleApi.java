@@ -43,7 +43,7 @@ public interface RoleApi {
     @GetMapping(value = ROLE,produces = MediaType.APPLICATION_JSON_VALUE)
     ResponsePaginationDto<RoleDto> findAll( @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                             @RequestParam(value = "size", defaultValue = "1", required = false) int size,
-                                            @RequestParam(value = "sort", defaultValue = "name,asc", required = false) List<String> sort);
+                                            @RequestParam(value = "sort", defaultValue = "name,desc", required = false) List<String> sort);
 
 
 

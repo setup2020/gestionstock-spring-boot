@@ -1,11 +1,9 @@
 package cm.aupas.gestionstock.controller;
 
 import cm.aupas.gestionstock.controller.api.ArticleApi;
-import cm.aupas.gestionstock.dto.ArticleDto;
-import cm.aupas.gestionstock.dto.LineOrderCustomerDto;
-import cm.aupas.gestionstock.dto.LineOrderSupplierDto;
-import cm.aupas.gestionstock.dto.LineSaleDto;
+import cm.aupas.gestionstock.dto.*;
 import cm.aupas.gestionstock.services.ArticleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -36,9 +34,10 @@ public class ArticleController  implements ArticleApi {
     }
 
     @Override
-    public List<ArticleDto> findAll() {
-        return articleService.findAll();
+    public ResponseEntity<ResponsePaginationDto> findAll(int page, int size, List<String> sort) {
+        return  ResponseEntity.ok(articleService.findAll(page,size,sort));
     }
+
 
     @Override
     public void delete(Long id) {

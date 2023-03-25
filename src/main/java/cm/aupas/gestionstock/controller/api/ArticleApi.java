@@ -1,14 +1,12 @@
 package cm.aupas.gestionstock.controller.api;
 
-import cm.aupas.gestionstock.dto.ArticleDto;
-import cm.aupas.gestionstock.dto.LineOrderCustomerDto;
-import cm.aupas.gestionstock.dto.LineOrderSupplierDto;
-import cm.aupas.gestionstock.dto.LineSaleDto;
+import cm.aupas.gestionstock.dto.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static cm.aupas.gestionstock.utils.Constants.APP_ROOT;
@@ -51,7 +49,9 @@ public interface ArticleApi {
 
     })
     @GetMapping(value = APP_ROOT+"/articles",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ArticleDto> findAll();
+    public ResponseEntity<ResponsePaginationDto> findAll(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                                         @RequestParam(value = "size", defaultValue = "1", required = false) int size,
+                                                         @RequestParam(value = "sort", defaultValue = "name,desc", required = false) List<String> sort);
 
 
 

@@ -243,7 +243,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         if(articleOptional.isEmpty()){
             throw  new EntityNotFoundException("Aucun article n'a ete trouvé avec ID  "+articleId,ErrorCode.ERROR_500);
         }
-        List<String> errors =ArticleValidator.validator(ArticleDto.fromEntity(articleOptional.get()));
+        List<String> errors =ArticleValidator.validator(ArticleDto.mapToDTO(articleOptional.get()));
         if(!errors.isEmpty()){
             throw new InvalidEntityException("Article invalide",ErrorCode.ERROR_422,errors);
         }

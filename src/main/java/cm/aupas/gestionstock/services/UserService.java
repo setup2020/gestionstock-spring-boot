@@ -9,4 +9,5 @@ public interface UserService extends DefaultService<UserDto,Long>{
     UserDto findByEmail(String email);
 
     UserDto changerMotDePasse(ChangePasswordDto dto);
+
 }

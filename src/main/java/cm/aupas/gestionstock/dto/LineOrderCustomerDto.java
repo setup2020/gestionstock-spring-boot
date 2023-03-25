@@ -25,7 +25,7 @@ public class LineOrderCustomerDto {
         }
         return LineOrderCustomerDto.builder()
                 .id(lineOrderCustomer.getId())
-                .article(ArticleDto.fromEntity(lineOrderCustomer.getArticle()))
+                .article(ArticleDto.mapToDTO(lineOrderCustomer.getArticle()))
                 .companyId(lineOrderCustomer.getCompanyId())
                 .quantity(lineOrderCustomer.getQuantity())
                 .priceUnity(lineOrderCustomer.getPriceUnity())

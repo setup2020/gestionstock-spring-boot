@@ -45,7 +45,7 @@ public class ArticleDto {
         return  article;
     }
 
-   public static ArticleDto fromEntity(Article article){
+   public static ArticleDto mapToDTO(Article article){
         if(article==null){
             return  null;
         }

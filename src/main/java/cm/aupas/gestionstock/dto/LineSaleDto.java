@@ -30,7 +30,7 @@ public class LineSaleDto {
         return LineSaleDto.builder()
                 .id(lineSale.getId())
                 .sale(SaleDto.fromEntity(lineSale.getSale()))
-                .article(ArticleDto.fromEntity(lineSale.getArticle()))
+                .article(ArticleDto.mapToDTO(lineSale.getArticle()))
                 .quantity(lineSale.getQuantity())
                 .priceUnity(lineSale.getPriceUnity())
                 .build();

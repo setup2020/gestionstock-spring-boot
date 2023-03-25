@@ -1,10 +1,8 @@
 package cm.aupas.gestionstock.services.impl;
 
 import cm.aupas.gestionstock.domain.Article;
-import cm.aupas.gestionstock.dto.ArticleDto;
-import cm.aupas.gestionstock.dto.LineOrderCustomerDto;
-import cm.aupas.gestionstock.dto.LineOrderSupplierDto;
-import cm.aupas.gestionstock.dto.LineSaleDto;
+import cm.aupas.gestionstock.domain.Role;
+import cm.aupas.gestionstock.dto.*;
 import cm.aupas.gestionstock.exceptions.EntityNotFoundException;
 import cm.aupas.gestionstock.exceptions.ErrorCode;
 import cm.aupas.gestionstock.exceptions.InvalidEntityException;
@@ -12,6 +10,9 @@ import cm.aupas.gestionstock.repository.*;
 import cm.aupas.gestionstock.services.ArticleService;
 import cm.aupas.gestionstock.validators.ArticleValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -50,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 
-        return ArticleDto.fromEntity(
+        return ArticleDto.mapToDTO(
                 articleRepository.save(ArticleDto.toEntity(articleDto))
         );
     }
@@ -64,16 +65,24 @@ public class ArticleServiceImpl implements ArticleService {
          }
 
       Optional<Article>  article=articleRepository.findById(id);
-         ArticleDto dto=ArticleDto.fromEntity(article.get());
+         ArticleDto dto=ArticleDto.mapToDTO(article.get());
          return Optional.of(dto).orElseThrow(()->new EntityNotFoundException("Aucun article avec l'id= "+id+"n' ete trouvee dans la application",ErrorCode.ERROR_404));
     }
 
     @Override
-    public List<ArticleDto> findAll() {
-        return articleRepository.findAll()
-                .stream()
-                .map(ArticleDto::fromEntity)
-                .collect(Collectors.toList());
+    public ResponsePaginationDto<ArticleDto> findAll(int page, int size, List<String> sort){
+        ResponsePaginationDto<ArticleDto> paginationDto=new ResponsePaginationDto<>();
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Article> articles = articleRepository.findAll(pageable);
+        paginationDto.setSize(articles.getSize());
+        paginationDto.setTotal(articles.getTotalElements());
+        paginationDto.setTotalPage(articles.getTotalPages());
+        paginationDto.setPage(page);
+        // get content for page object
+        List<Article> articleList = articles.getContent();
+        paginationDto.setContent(articleList.stream().map(ArticleDto::mapToDTO).collect(Collectors.toList()));
+        return  paginationDto;
+
     }
 
     @Override
@@ -99,7 +108,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         Optional<Article> article=articleRepository.findByReference(reference);
 
-        return Optional.of(ArticleDto.fromEntity(article.get())).orElseThrow(()->
+        return Optional.of(ArticleDto.mapToDTO(article.get())).orElseThrow(()->
             new EntityNotFoundException("Aucun article avec cette reference= "+reference+"n' ete trouvee dans la BDD",ErrorCode.ERROR_404));
     }
 
@@ -124,6 +133,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleDto> findAllArticleByCategory(Long categoryId) {
 
-        return articleRepository.findAllByCategoryId(categoryId).stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
+        return articleRepository.findAllByCategoryId(categoryId).stream().map(ArticleDto::mapToDTO).collect(Collectors.toList());
     }
 }

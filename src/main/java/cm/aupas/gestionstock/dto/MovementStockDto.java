@@ -34,7 +34,7 @@ public class MovementStockDto {
                 .dateMvt(movementStock.getDateMvt())
                 .quantity(movementStock.getQuantity())
                 .typeMvt(movementStock.getTypeMvt())
-                .article(ArticleDto.fromEntity(movementStock.getArticle()))
+                .article(ArticleDto.mapToDTO(movementStock.getArticle()))
                 .companyId(movementStock.getCompanyId())
                 .build();
     }

@@ -7,7 +7,7 @@ import cm.aupas.gestionstock.dto.LineSaleDto;
 
 import java.util.List;
 
-public interface ArticleService extends DefaultService<ArticleDto, Long> {
+public interface ArticleService extends DefaultService2<ArticleDto, Long> {
 
     ArticleDto findByReferenceArticle(String reference);
     List<LineSaleDto> findHistorySale(Long articleId);

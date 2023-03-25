@@ -54,7 +54,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public ResponsePaginationDto<RoleDto> findAll(int page, int size, List<String> sort) {
         ResponsePaginationDto<RoleDto> paginationDto=new ResponsePaginationDto<>();
-        Pageable pageable = PageRequest.of(page, size, ResponsePaginationDto.sort(sort));
+       // ResponsePaginationDto.sort(sort)
+        Pageable pageable = PageRequest.of(page, size);
         Page<Role> roles = roleRepository.findAll(pageable);
         paginationDto.setSize(roles.getSize());
         paginationDto.setTotal(roles.getTotalElements());
