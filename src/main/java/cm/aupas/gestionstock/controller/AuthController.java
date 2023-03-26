@@ -10,20 +10,19 @@ import cm.aupas.gestionstock.services.impl.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.jwt.*;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -31,6 +30,7 @@ import static cm.aupas.gestionstock.utils.Constants.APP_ROOT;
 
 @RestController
 @RequestMapping(APP_ROOT)
+@Slf4j
 public class AuthController {
 
 
@@ -83,18 +83,19 @@ public class AuthController {
 
 
     @PostMapping("/infos")
-   // @PreAuthorize("hasAuthority('SCOPE_USER')")
-    public  ResponseEntity<UserDto> dataTest(String token){
-
-        if(token==null){
+    // @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public ResponseEntity<UserDto> infoUser(HttpServletRequest request) {
+        final String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            Jwt decodedJwt = jwtDecoder.decode(authHeader.substring(7));
+            String username = decodedJwt.getSubject();
+            UserDto appUser = userService.findByUserName1(username);
+            return new ResponseEntity<>(appUser, HttpStatus.OK);
+        } else {
             throw new EntityNotFoundException("Invalid token");
         }
 
-        Jwt decodedJwt = jwtDecoder.decode(token);
-        String username=decodedJwt.getSubject();
-        UserDto appUser=userService.findByUserName1(username);
 
-        return new ResponseEntity<>(appUser,HttpStatus.OK);
     }
 
 
