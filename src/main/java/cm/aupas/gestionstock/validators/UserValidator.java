@@ -14,6 +14,14 @@ public class UserValidator {
             errors.add("Veuillez renseigner le nom de l'utilisateur");
         }
 
+        if(userDto==null || !StringUtils.hasLength(userDto.getPassword())){
+            errors.add("Veuillez renseigner le mot de passe");
+        }
+
+        if(userDto==null || !StringUtils.hasLength(userDto.getUsername())){
+            errors.add("Veuillez renseigner username");
+        }
+
 
 
         return errors;

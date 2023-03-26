@@ -23,6 +23,8 @@ public class User  extends AbstractEntity{
 
     @Column(name = "first_name")
     private String firstName;
+
+    private String username;
     @Column(name = "last_name")
     private String lastName;
     @Column(name="date_birth")

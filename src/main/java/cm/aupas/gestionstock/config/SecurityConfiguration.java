@@ -1,5 +1,6 @@
 package cm.aupas.gestionstock.config;
 
+import cm.aupas.gestionstock.dto.LoginDto;
 import cm.aupas.gestionstock.dto.UserDto;
 import cm.aupas.gestionstock.services.UserService;
 import com.nimbusds.jose.jwk.JWK;
@@ -8,6 +9,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +46,7 @@ import static cm.aupas.gestionstock.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
+@Slf4j
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
@@ -56,12 +59,6 @@ public class SecurityConfiguration {
         this.passwordEncoder = passwordEncoder1;
     }
 
-
-  /*  @Bean
-            public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
-
-        return authenticationConfiguration.getAuthenticationManager();
-    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService){
@@ -82,10 +79,12 @@ public class SecurityConfiguration {
             private UserService accountService;
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                UserDto appUser=accountService.findByEmail(username);
+                LoginDto appUser=accountService.findByUserName(username);
+                log.warn("-------------------------------user---------------------------- {}",appUser);
                 if (appUser==null) throw new UsernameNotFoundException("User not found");
                 //Collection<GrantedAuthority> authorities= List.of(new SimpleGrantedAuthority("USER"));
                 Collection<GrantedAuthority> authorities=appUser.getRoles().stream().map(r->new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+
                 return new User(username,appUser.getPassword(),authorities);
             }
         };
@@ -100,23 +99,25 @@ public class SecurityConfiguration {
 
 
 
-   // @Bean
+  // @Bean
   WebSecurityCustomizer webSecurityCustomizer(){
       return (web -> web.ignoring().antMatchers("/**"));
   }
 
-   // @Bean
-    public UserDetailsService inMemoryUserDetailsManager(){
-        return new InMemoryUserDetailsManager(
-                User.withUsername("user1").password(passwordEncoder.encode("1234")).authorities("USER").build(),
-                User.withUsername("admin").password(passwordEncoder.encode("1234")).authorities("USER","ADMIN").build()
-        );
-    }
+
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf(csrf->csrf.disable()) //(1)
-                .authorizeRequests(auth->auth.antMatchers("/"+APP_ROOT+"/token/**").permitAll() )
+                .authorizeRequests(auth->auth.antMatchers("/"+APP_ROOT+"/token/**",
+                        "/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui/**",
+                        "/webjars/**"
+                        ).permitAll() )
+
                    .authorizeRequests(auth->auth.anyRequest().authenticated()) // (2)
 
                 .sessionManagement(sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // (3)

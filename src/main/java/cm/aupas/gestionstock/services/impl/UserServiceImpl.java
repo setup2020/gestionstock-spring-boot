@@ -2,6 +2,7 @@ package cm.aupas.gestionstock.services.impl;
 
 import cm.aupas.gestionstock.domain.User;
 import cm.aupas.gestionstock.dto.ChangePasswordDto;
+import cm.aupas.gestionstock.dto.LoginDto;
 import cm.aupas.gestionstock.dto.UserDto;
 import cm.aupas.gestionstock.exceptions.EntityNotFoundException;
 import cm.aupas.gestionstock.exceptions.ErrorCode;
@@ -40,8 +41,8 @@ public class UserServiceImpl implements UserService {
             throw new InvalidEntityException("L'utilisateur n'est pas valide", ErrorCode.ERROR_422, errors);
 
         }
-        return UserDto.fromEntity(
-                userRepository.save(UserDto.toEntity(userDto))
+        return UserDto.mapToDTO(
+                userRepository.save(UserDto.mapToEntity(userDto))
         );
     }
 
@@ -53,14 +54,14 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         return userRepository.findById(id).
-                map(UserDto::fromEntity).orElseThrow(
+                map(UserDto::mapToDTO).orElseThrow(
                         () -> new EntityNotFoundException("Aucun utitlisateur avec l'ID=" + id + "n'ete trouve dans la BDD ", ErrorCode.ERROR_404));
 
     }
 
     @Override
     public List<UserDto> findAll() {
-        return userRepository.findAll().stream().map(UserDto::fromEntity).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(UserDto::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -79,10 +80,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findByEmail(String email) {
-        return userRepository.findByEmail(email).map(
-                UserDto::fromEntity
-        ).orElseThrow(()->new EntityNotFoundException("Aucun utilisateur avec l'email= "+email+" n'ete trouve dans la BDD0",ErrorCode.ERROR_404));
+    public LoginDto findByUserName(String username) {
+        return userRepository.findByUsername(username).map(
+                LoginDto::mapToDTO
+        ).orElseThrow(()->new EntityNotFoundException("Aucun utilisateur avec le username= "+username+" n'ete trouve dans la BDD0",ErrorCode.ERROR_404));
+    }
+
+    @Override
+    public UserDto findByUserName1(String username) {
+        return userRepository.findByUsername(username).map(
+                UserDto::mapToDTO
+        ).orElseThrow(()->new EntityNotFoundException("Aucun utilisateur avec le username= "+username+" n'ete trouve dans la BDD0",ErrorCode.ERROR_404));
     }
 
     @Override
@@ -96,7 +104,7 @@ public class UserServiceImpl implements UserService {
         }
         User user=userOptional.get();
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        return UserDto.fromEntity(
+        return UserDto.mapToDTO(
                 userRepository.save(user)
         );
     }
