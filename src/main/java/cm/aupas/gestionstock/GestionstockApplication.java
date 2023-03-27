@@ -27,7 +27,7 @@ public class GestionstockApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner start(UserService userService,PasswordEncoder passwordEncoder){
 		return args -> {
 			userService.save(UserDto.builder().username("pascal237").lastName("pascal").email("pascal@gmail.com").password(passwordEncoder.encode("123")).build());

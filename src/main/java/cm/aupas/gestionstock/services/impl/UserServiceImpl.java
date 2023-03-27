@@ -35,15 +35,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto save(UserDto userDto) {
-        List<String> errors = UserValidator.validator(userDto);
-        if (!errors.isEmpty()) {
-            log.error("User is not valid {}", userDto);
-            throw new InvalidEntityException("L'utilisateur n'est pas valide", ErrorCode.ERROR_422, errors);
 
+        try {
+            List<String> errors = UserValidator.validator(userDto);
+            if (!errors.isEmpty()) {
+                log.error("User is not valid {}", userDto);
+                throw new InvalidEntityException("L'utilisateur n'est pas valide", ErrorCode.ERROR_422, errors);
+
+            }
+            return UserDto.mapToDTO(
+                    userRepository.save(UserDto.mapToEntity(userDto))
+            );
+        } catch (Exception e){
+            log.error("Error {}" ,e);
         }
-        return UserDto.mapToDTO(
-                userRepository.save(UserDto.mapToEntity(userDto))
-        );
+
+        return userDto;
     }
 
     @Override

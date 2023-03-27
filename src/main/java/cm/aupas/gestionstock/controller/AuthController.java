@@ -17,9 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
@@ -50,7 +48,7 @@ public class AuthController {
 
     @PostMapping( "/token")
 
-    public ResponseEntity<Map<String, String>> requestForToken(AuthenticationRequest authenticationRequest
+    public ResponseEntity<Map<String, String>> requestForToken(@RequestBody AuthenticationRequest authenticationRequest
     ) {
         Map<String, String> response;
          if (authenticationRequest.getGrantType().equals("password")) {

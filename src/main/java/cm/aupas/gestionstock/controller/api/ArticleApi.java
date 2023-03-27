@@ -5,11 +5,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static cm.aupas.gestionstock.utils.Constants.APP_ROOT;
+
+import java.io.IOException;
 import java.util.List;
 
 @Api(APP_ROOT+"/articles")
@@ -74,5 +77,8 @@ public interface ArticleApi {
 
     @GetMapping(value = APP_ROOT+"/articles/history/filter/category/{categoryId}",produces = MediaType.APPLICATION_JSON_VALUE)
     List<ArticleDto> findAllArticleByCategory(@PathVariable  Long categoryId);
+
+    @GetMapping(value = APP_ROOT+"/articles/report")
+    ResponseEntity<byte[]> reportArticle() throws JRException, IOException;
 
 }

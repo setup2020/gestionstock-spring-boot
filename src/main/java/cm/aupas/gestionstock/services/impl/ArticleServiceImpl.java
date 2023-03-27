@@ -10,13 +10,25 @@ import cm.aupas.gestionstock.repository.*;
 import cm.aupas.gestionstock.services.ArticleService;
 import cm.aupas.gestionstock.validators.ArticleValidator;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -135,4 +147,32 @@ public class ArticleServiceImpl implements ArticleService {
 
         return articleRepository.findAllByCategoryId(categoryId).stream().map(ArticleDto::mapToDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public JasperPrint generateReport(String fileFormat) throws JRException, IOException {
+        List<ArticleDto> articleDtos=articleRepository.findAll().stream().map(ArticleDto::mapToDTO).collect(Collectors.toList());
+        return  getJasperPrint(articleDtos,"classpath:product.jrxml");
+    }
+
+
+    private JasperPrint getJasperPrint(List<ArticleDto> phoneCollection, String resourceLocation) throws FileNotFoundException, JRException {
+        File file = ResourceUtils.getFile(resourceLocation);
+
+        JasperReport jasperReport =
+                JasperCompileManager
+                .compileReport(file.getAbsolutePath());
+
+        JRBeanCollectionDataSource dataSource = new
+                JRBeanCollectionDataSource(phoneCollection);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("createdBy","David");
+
+        JasperPrint jasperPrint = JasperFillManager
+                .fillReport(jasperReport,parameters,dataSource);
+
+        return jasperPrint;
+    }
+
+
+
 }
